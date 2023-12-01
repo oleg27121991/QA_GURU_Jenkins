@@ -9,7 +9,7 @@ version = '1.0-SNAPSHOT'
 def     slf4jVersion = "2.0.9",
         junitVersion = "5.10.1",
         javafakerVersion = "1.0.2",
-        selenideVersion = "7.0.2",
+        selenideVersion = "6.19.1",
         allureVersion = "2.24.0"
 
 allure {
@@ -60,11 +60,5 @@ task positive_test(type: Test) {
 task negative(type: Test) {
     useJUnitPlatform {
         includeTags("negative")
-    }
-}
-
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(11)
     }
 }
