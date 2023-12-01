@@ -62,3 +62,9 @@ task negative(type: Test) {
         includeTags("negative")
     }
 }
+
+task all_test(type: Test) {
+    useJUnitPlatform {
+        includeTags("UI")
+    }
+}
