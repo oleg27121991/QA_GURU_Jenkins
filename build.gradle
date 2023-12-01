@@ -62,3 +62,9 @@ task negative(type: Test) {
         includeTags("negative")
     }
 }
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
+}
