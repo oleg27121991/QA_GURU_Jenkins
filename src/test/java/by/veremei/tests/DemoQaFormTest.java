@@ -2,8 +2,6 @@ package by.veremei.tests;
 
 import by.veremei.data.TestData;
 import by.veremei.pages.DemoqaFormPage;
-import by.veremei.steps.CheckTableWithResulSteps;
-import by.veremei.steps.FillFormSteps;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -14,8 +12,6 @@ import static io.qameta.allure.Allure.step;
 @DisplayName("Заполнение формы DemoQA")
 @Tag("UI")
 public class DemoQaFormTest extends BaseTest {
-    FillFormSteps fillFormSteps = new FillFormSteps();
-    CheckTableWithResulSteps checkTableSteps = new CheckTableWithResulSteps();
     DemoqaFormPage demoqaFormPage = new DemoqaFormPage();
     TestData data = new TestData();
     private final static String DEMO_QA_PRACTICE_FORM_URL = "/automation-practice-form",
@@ -41,20 +37,20 @@ public class DemoQaFormTest extends BaseTest {
     @DisplayName("Заполнение всех полей в таблице и проверка их отображения в форме")
     @Tag("positive")
     void testEnteringCorrectDataIntoTheForm() {
-        fillFormSteps.openFormPage(DEMO_QA_PRACTICE_FORM_URL)
-                    .setUserFirstName(data.firstName)
-                    .setLastName(data.lastName)
-                    .setEmail(data.email)
-                    .checkUserGender(data.gender)
-                    .setUserPhone(data.phoneNumber)
-                    .checkUserBirth(data.yearBirth, data.month, data.dayOfBirth)
-                    .setSubjects(data.subjects)
-                    .checkUserHobbies(data.hobbies)
-                    .enterImg("1.jpg")
-                    .setCurrentAddress(data.currentAddress)
-                    .checkStateAndCity(data.state, data.city);
+        demoqaFormPage.openPage(DEMO_QA_PRACTICE_FORM_URL)
+                .addUserFirstName(data.firstName)
+                .addUserLastName(data.lastName)
+                .addUserEmail(data.email)
+                .checkUserGender(data.gender)
+                .addUserPhone(data.phoneNumber)
+                .setUserBirth(data.yearBirth, data.month, data.dayOfBirth)
+                .selectSubjects(data.subjects)
+                .selectHobbies(data.hobbies)
+                .choicePicture("1.jpg")
+                .addCurrentAddress(data.currentAddress)
+                .choiceStateAndCity(data.state, data.city);
 
-        checkTableSteps.checkSubmittingForm(STUDENT_NAME, data.firstName)
+        demoqaFormPage.checkSubmittingForm(STUDENT_NAME, data.firstName)
                 .checkSubmittingForm(STUDENT_NAME, data.lastName)
                 .checkSubmittingForm(STUDENT_EMAIL, data.email)
                 .checkSubmittingForm(STUDENT_GENDER, data.gender)

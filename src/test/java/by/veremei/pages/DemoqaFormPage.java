@@ -6,6 +6,7 @@ package by.veremei.pages;
 import by.veremei.pages.components.CalendarComponent;
 import by.veremei.pages.components.TableWithResultComponent;
 import com.codeborne.selenide.*;
+import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
@@ -28,73 +29,89 @@ public class DemoqaFormPage {
                             selectCity = $("#react-select-4-input"),
                             buttonSendForm = $("#submit");
 
-
-    public void openPage(String url) {
+    @Step("Открываем страницу с формой, убираем рекламу и футер")
+    public DemoqaFormPage openPage(String url) {
         Selenide.open(url);
         executeJavaScript("$('#fixedban').remove()");
         executeJavaScript("$('footer').remove()");
+        return  this;
     }
 
+    @Step("Вводим имя пользователя")
     public DemoqaFormPage addUserFirstName(String firstName) {
         inputFirstName.sendKeys(firstName);
-
         return this;
     }
 
+    @Step("Вводим фамилию пользователя")
     public DemoqaFormPage addUserLastName(String lastName) {
         inputLastName.sendKeys(lastName);
-
         return this;
     }
 
-    public void addUserEmail(String email) {
+    @Step("Вводим email пользователя")
+    public DemoqaFormPage addUserEmail(String email) {
         inputUserEmail.sendKeys(email);
+        return this;
     }
 
+    @Step("Выбираем пол пользователя")
     public DemoqaFormPage checkUserGender(String gender) {
         $(byText(gender)).click();
-
         return this;
     }
 
+    @Step("Вводим телефон пользователя")
     public DemoqaFormPage addUserPhone(String phoneNumber) {
         inputUserNumber.sendKeys(phoneNumber);
-
         return this;
     }
 
-    public void setUserBirth(String year, String mouth, String day){
+    @Step("Выбираем дату рождения пользователя")
+    public DemoqaFormPage setUserBirth(String year, String mouth, String day){
         inputCalendar.click();
         calendar.setDate(year, mouth, day);
+        return this;
     }
 
-    public void selectSubjects(String subjects) {
+    @Step("Вводим названия предметов")
+    public DemoqaFormPage selectSubjects(String subjects) {
         inputSubjects.setValue(subjects);
         inputSubjects.pressEnter();
+        return this;
     }
 
-    public void selectHobbies(String hobby) {
+    @Step("Выбираем хобби пользователя")
+    public DemoqaFormPage selectHobbies(String hobby) {
         checkboxHobbies.$(byText(hobby)).click();
+        return this;
     }
 
-    public void choicePicture(String imgName) {
+    @Step("Загружаем изображение")
+    public DemoqaFormPage choicePicture(String imgName) {
         inputUploadPicture.uploadFromClasspath(imgName);
+        return this;
     }
 
-    public void addCurrentAddress(String address) {
+    @Step("Вводим текущий адрес")
+    public DemoqaFormPage addCurrentAddress(String address) {
         textAreaCurrentAddress.sendKeys(address);
+        return this;
     }
 
+    @Step("Выбираем штат и город")
     public void choiceStateAndCity(String state, String city) {
         selectState.setValue(state).pressEnter();
         selectCity.setValue(city).pressEnter();
         selectCity.pressEnter();
     }
 
+    @Step("Кликаем на кнопку 'Отправить'")
     public void sendForm() {
         buttonSendForm.click();
     }
 
+    @Step("Проверяем отображение введенных значений в таблице")
     public DemoqaFormPage checkSubmittingForm(String key, String value) {
         table.checkTable(key, value);
 
