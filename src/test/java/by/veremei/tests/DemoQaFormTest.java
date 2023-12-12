@@ -37,7 +37,8 @@ public class DemoQaFormTest extends BaseTest {
     @DisplayName("Заполнение всех полей в таблице и проверка их отображения в форме")
     @Tag("positive")
     void testEnteringCorrectDataIntoTheForm() {
-        demoqaFormPage.openPage(DEMO_QA_PRACTICE_FORM_URL)
+        demoqaFormPage
+                .openPage(DEMO_QA_PRACTICE_FORM_URL)
                 .addUserFirstName(data.firstName)
                 .addUserLastName(data.lastName)
                 .addUserEmail(data.email)
@@ -50,7 +51,8 @@ public class DemoQaFormTest extends BaseTest {
                 .addCurrentAddress(data.currentAddress)
                 .choiceStateAndCity(data.state, data.city);
 
-        demoqaFormPage.checkSubmittingForm(STUDENT_NAME, data.firstName)
+        demoqaFormPage
+                .checkSubmittingForm(STUDENT_NAME, data.firstName)
                 .checkSubmittingForm(STUDENT_NAME, data.lastName)
                 .checkSubmittingForm(STUDENT_EMAIL, data.email)
                 .checkSubmittingForm(STUDENT_GENDER, data.gender)
@@ -77,14 +79,16 @@ public class DemoQaFormTest extends BaseTest {
             demoqaFormPage.openPage(DEMO_QA_PRACTICE_FORM_URL);
         });
         step("Заполняем обязательные поля", () -> {
-            demoqaFormPage.addUserFirstName(data.firstName)
+            demoqaFormPage
+                    .addUserFirstName(data.firstName)
                     .addUserLastName(data.lastName)
                     .checkUserGender(data.gender)
                     .addUserPhone(data.phoneNumber)
                     .sendForm();
         });
         step("Проверяем отображение введенных значений в таблице", () -> {
-            demoqaFormPage.checkSubmittingForm(STUDENT_NAME, data.firstName)
+            demoqaFormPage
+                    .checkSubmittingForm(STUDENT_NAME, data.firstName)
                     .checkSubmittingForm(STUDENT_NAME, data.lastName)
                     .checkSubmittingForm(STUDENT_GENDER, data.gender)
                     .checkSubmittingForm(STUDENT_MOBILE, data.phoneNumber);
@@ -107,7 +111,8 @@ public class DemoQaFormTest extends BaseTest {
             demoqaFormPage.sendForm();
         });
         step("Проверяем что обязательные поля выделились красным", () -> {
-            demoqaFormPage.checkInputInvalidBorderColor(INVALID_CSS_NAME, INVALID_CSS_VALUE)
+            demoqaFormPage
+                    .checkInputInvalidBorderColor(INVALID_CSS_NAME, INVALID_CSS_VALUE)
                     .checkRadioInvalidBorderColor(INVALID_CSS_NAME, INVALID_CSS_VALUE);
         });
     }
